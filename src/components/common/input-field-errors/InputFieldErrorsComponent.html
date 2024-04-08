@@ -1,0 +1,19 @@
+<!-- Required field error -->
+<ng-container *ngIf="shouldRenderError(ErrorTypes.REQUIRED_FIELD)">
+    <div class="p-error text-left">
+        <i class="pi pi-info-circle text-xs mr-1"></i>
+        <span class="text-sm">Campo requerido</span>
+    </div>
+</ng-container>
+
+<!-- Min Length error -->
+<ng-container *ngIf="shouldRenderError(ErrorTypes.MIN_LENGTH)">
+    <div class="p-error text-left">
+        <i class="pi pi-info-circle text-xs mr-1"></i>
+        <span class="text-sm">
+            La longitud minima es {{ currentInput.errors?.['minlength'].requiredLength }} caracteres
+        </span>
+    </div>
+</ng-container>
+
+<!-- Add any additional errors here -->

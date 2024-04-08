@@ -1,0 +1,8 @@
+<div class="login-background min-h-screen flex align-items-center justify-content-center">
+    <div class="surface-card p-4 border-round w-9 sm:w-8 md:w-5 lg:w-4 xl:w-3">
+        <app-login
+            applicationName="Sistema de Gestión de XYZ"
+            (loginSuccess)="onLoginSuccess($event)"
+            (loginFailure)="onLoginFailure($event)"></app-login>
+    </div>
+</div>

@@ -1,0 +1,8 @@
+/*
+ * Este archivo debería contener solo estilos globales que no están relacionados a un componente en particular. Esta
+ * hoja de estilos es incluida desde el archivo `angular.json` después de haber importado los estilos relacionados con
+ * PrimeNG.
+ *
+ * Las clases utilitarias de PrimeFlex deberían ser suficientes para manejar cualquier necesidad de estilos, un estilo
+ * global debería ser el ultimo recurso que utilice un desarrollador.
+*/

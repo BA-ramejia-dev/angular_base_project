@@ -1,0 +1,92 @@
+<!-- Actions toolbar -->
+<p-toolbar styleClass="mb-4 gap-2">
+    <ng-template pTemplate="left">
+        <p-button
+            pRipple
+            label="Agregar"
+            icon="pi pi-plus"
+            size="small"
+            severity="success"
+            (click)="handleAddNewRecord()"></p-button>
+    </ng-template>
+
+    <ng-template pTemplate="right">
+        <p-button
+            pRipple
+            label="Exportar"
+            icon="pi pi-file-export"
+            size="small"
+            severity="help"></p-button>
+    </ng-template>
+</p-toolbar>
+
+<!-- Data table -->
+<p-table
+    #dataTable
+    [value]="teams"
+    [rows]="10"
+    [scrollable]="true"
+    scrollHeight="50vh"
+    [paginator]="true"
+    styleClass="p-datatable-sm"
+    [globalFilterFields]="['name', 'leaderName']"
+    [rowHover]="true"
+    dataKey="id"
+    currentPageReportTemplate="Mostrando del registro {first} al {last} de un total de {totalRecords} registros"
+    [showCurrentPageReport]="true">
+    <!-- Table caption -->
+    <ng-template pTemplate="caption">
+        <div class="flex align-items-center justify-content-between">
+            <h5 class="m-0 hidden md:block">Equipos</h5>
+            <span class="p-input-icon-left">
+                <i class="pi pi-search"></i>
+                <input
+                    pInputText
+                    class="w-full"
+                    type="text"
+                    (input)="dataTable.filterGlobal($any($event.target).value, 'contains')"
+                    placeholder="Buscar..." />
+            </span>
+        </div>
+    </ng-template>
+
+    <!-- Table header -->
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="name">Nombre <p-sortIcon field="name"></p-sortIcon></th>
+            <th pSortableColumn="description">
+                Descripción <p-sortIcon field="description"></p-sortIcon>
+            </th>
+            <th pSortableColumn="leaderName">Líder <p-sortIcon field="leaderName"></p-sortIcon></th>
+            <th></th>
+        </tr>
+    </ng-template>
+
+    <!-- Table body -->
+    <ng-template pTemplate="body" let-team>
+        <tr>
+            <td>{{ team.name }}</td>
+            <td>{{ team.description }}</td>
+            <td>{{ team.leaderName }}</td>
+            <td>
+                <p-button
+                    icon="pi pi-plus"
+                    size="small"
+                    [rounded]="true"
+                    [text]="true"
+                    (click)="handleAddNewMember(team)"></p-button>
+                <p-button
+                    icon="pi pi-pencil"
+                    size="small"
+                    [rounded]="true"
+                    [text]="true"
+                    (click)="handleEditRecord(team)"></p-button>
+            </td>
+        </tr>
+    </ng-template>
+
+    <!-- No data found -->
+    <ng-template pTemplate="emptymessage">
+        <div class="empty-message">No hay datos disponibles.</div>
+    </ng-template>
+</p-table>

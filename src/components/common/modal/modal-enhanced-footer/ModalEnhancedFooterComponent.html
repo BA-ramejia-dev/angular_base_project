@@ -1,0 +1,18 @@
+<div>
+    <!-- Close dialog button -->
+    <p-button
+        pRipple
+        label="Cancelar"
+        icon="pi pi-times"
+        [text]="true"
+        (click)="closeDialog()"></p-button>
+
+    <!-- Submit form button -->
+    <p-button
+        pRipple
+        label="Guardar"
+        icon="pi pi-check"
+        [text]="true"
+        [loading]="isLoading"
+        (click)="saveData()"></p-button>
+</div>

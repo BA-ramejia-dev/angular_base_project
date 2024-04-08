@@ -1,0 +1,67 @@
+<form (ngSubmit)="handleOnFormSubmit()" [formGroup]="formGroup" class="flex flex-column p-4 gap-3">
+    <div>
+        <label for="name">Nombre de equipo</label>
+        <input
+            pInputText
+            placeholder="Ingrese nombre de equipo"
+            id="name"
+            formControlName="name"
+            type="text"
+            class="p-2 w-full" />
+
+        <app-input-field-errors
+            [currentInput]="formGroup.controls.name"
+            [formHasBeenSubmitted]="formHasBeenSubmitted"></app-input-field-errors>
+    </div>
+
+    <div>
+        <label for="description">Descripción</label>
+        <textarea
+            pInputTextarea
+            id="description"
+            formControlName="description"
+            placeholder="Ingrese descripción del equipo"
+            rows="4"
+            cols="10"
+            class="p-2 w-full"></textarea>
+
+        <app-input-field-errors
+            [currentInput]="formGroup.controls.description"
+            [formHasBeenSubmitted]="formHasBeenSubmitted"></app-input-field-errors>
+    </div>
+
+    <div>
+        <label for="leaderName">Líder</label>
+        <p-autoComplete
+            inputId="leaderName"
+            formControlName="leader"
+            placeholder="Buscar usuario"
+            styleClass="w-full"
+            appendTo="body"
+            inputStyleClass="w-full"
+            [suggestions]="filteredUsers"
+            [forceSelection]="true"
+            (completeMethod)="filterUsers($event)"
+            optionLabel="value"></p-autoComplete>
+
+        <app-input-field-errors
+            [currentInput]="formGroup.controls.leader"
+            [formHasBeenSubmitted]="formHasBeenSubmitted"></app-input-field-errors>
+    </div>
+
+    <div>
+        <div class="flex gap-3">
+            <div>
+                <label>Estado:</label>
+            </div>
+            <div>
+                <p-radioButton formControlName="state" [value]="TeamState.ACTIVE"></p-radioButton>
+                <label class="ml-2">Activo</label>
+            </div>
+            <div>
+                <p-radioButton formControlName="state" [value]="TeamState.INACTIVE"></p-radioButton>
+                <label class="ml-2">Inactivo</label>
+            </div>
+        </div>
+    </div>
+</form>

@@ -1,0 +1,41 @@
+<div class="w-full flex align-items-center justify-content-between bg-primary p-2">
+    <!-- show/hide sidebar -->
+    <p-button class="border-transparent focus:shadow-none" (click)="sidebarIsVisible = true">
+        <i class="pi pi-bars text-2xl text-white"></i>
+    </p-button>
+
+    <!-- Left Menu -->
+    <p-sidebar [(visible)]="sidebarIsVisible">
+        <ng-template pTemplate="content">
+            <p-menu [model]="mainMenuItems" styleClass="border-none w-full"></p-menu>
+        </ng-template>
+        <ng-template pTemplate="footer">
+            <div class="text-right">
+                <p-button
+                    icon="pi pi-sign-out"
+                    label="Cerrar Sesión"
+                    [text]="true"
+                    (onClick)="handleLogout()"
+                    severity="secondary"></p-button>
+            </div>
+        </ng-template>
+    </p-sidebar>
+
+    <!-- Right Menu -->
+    <div>
+        <p-menu
+            #userMenu
+            [model]="userMenuItems"
+            [popup]="true"
+            styleClass="border-noround"></p-menu>
+        <p-button class="border-transparent focus:shadow-none">
+            <i class="pi pi-bell text-2xl text-white"></i>
+        </p-button>
+
+        <p-button
+            (click)="userMenu.toggle($event)"
+            class="ml-1 border-transparent focus:shadow-none">
+            <i class="pi pi-user text-2xl text-white"></i>
+        </p-button>
+    </div>
+</div>

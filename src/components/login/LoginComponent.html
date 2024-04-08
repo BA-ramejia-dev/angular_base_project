@@ -1,0 +1,56 @@
+<div class="flex align-items-center flex-column gap-3">
+    <!-- Header -->
+    <header class="text-center">
+        <img
+            ngSrc="/assets/images/bancatlan-logo-and-text.png"
+            alt="Bancatlan Logo"
+            width="200"
+            height="81"
+            priority="true" />
+
+        <h1 class="text-900 mt-0 mb-1 text-2xl">{{ applicationName }}</h1>
+        <h2 class="text-600 mt-0 mb-2 text-lg">{{ welcomeMessage }}</h2>
+        <p class="text-600 m-0">{{ securityMessage }}</p>
+    </header>
+
+    <!-- Form Content -->
+    <form (ngSubmit)="handleOnFormSubmit()" [formGroup]="formGroup" class="flex flex-column gap-3">
+        <div>
+            <span class="p-input-icon-right">
+                <i class="pi pi-user"></i>
+                <input
+                    formControlName="userName"
+                    type="text"
+                    placeholder="Ingrese su usuario."
+                    pInputText />
+            </span>
+
+            <app-input-field-errors
+                [currentInput]="formGroup.controls.userName"
+                [formHasBeenSubmitted]="formHasBeenSubmitted"></app-input-field-errors>
+        </div>
+
+        <div>
+            <p-password
+                id="password"
+                placeholder="Ingrese su contraseña."
+                [toggleMask]="true"
+                [feedback]="false"
+                formControlName="password">
+            </p-password>
+
+            <app-input-field-errors
+                [currentInput]="formGroup.controls.password"
+                [formHasBeenSubmitted]="formHasBeenSubmitted"></app-input-field-errors>
+        </div>
+
+        <div class="text-center">
+            <p-button
+                label="{{ loginButtonText }}"
+                [loading]="isLoading"
+                type="submit"
+                iconPos="right"
+                icon="pi pi-lock"></p-button>
+        </div>
+    </form>
+</div>

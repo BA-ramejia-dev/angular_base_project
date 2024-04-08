@@ -1,0 +1,7 @@
+.message-background {
+    background: radial-gradient(
+        50% 109137.91% at 50% 50%,
+        rgba(233, 30, 99, 0.1) 0%,
+        rgba(254, 244, 247, 0) 100%
+    );
+}

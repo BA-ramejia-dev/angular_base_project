@@ -1,0 +1,48 @@
+<form (ngSubmit)="handleOnFormSubmit()" [formGroup]="formGroup" class="flex flex-column p-4 gap-3">
+    <div>
+        <p-dropdown
+            [options]="teams"
+            formControlName="selectedTeam"
+            optionLabel="value"
+            [filter]="true"
+            styleClass="w-full"
+            appendTo="body"
+            filterBy="value"
+            [showClear]="true"
+            placeholder="Selecciona un equipo">
+            <ng-template pTemplate="selectedItem">
+                <div
+                    class="flex align-items-center gap-2"
+                    *ngIf="formGroup.controls.selectedTeam.value">
+                    <div>{{ formGroup.controls.selectedTeam.value.value }}</div>
+                </div>
+            </ng-template>
+            <ng-template let-team pTemplate="item">
+                <div class="flex align-items-center gap-2">
+                    <div>{{ team.value }}</div>
+                </div>
+            </ng-template>
+        </p-dropdown>
+
+        <app-input-field-errors
+            [currentInput]="formGroup.controls.selectedTeam"
+            [formHasBeenSubmitted]="formHasBeenSubmitted"></app-input-field-errors>
+    </div>
+
+    <div>
+        <p-autoComplete
+            formControlName="selectedUser"
+            placeholder="Buscar usuario"
+            styleClass="w-full"
+            inputStyleClass="w-full"
+            appendTo="body"
+            [suggestions]="filteredUsers"
+            [forceSelection]="true"
+            (completeMethod)="filterUsers($event)"
+            optionLabel="value"></p-autoComplete>
+
+        <app-input-field-errors
+            [currentInput]="formGroup.controls.selectedUser"
+            [formHasBeenSubmitted]="formHasBeenSubmitted"></app-input-field-errors>
+    </div>
+</form>
