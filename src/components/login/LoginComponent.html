@@ -20,6 +20,7 @@
                 <i class="pi pi-user"></i>
                 <input
                     formControlName="userName"
+                    data-testid="userName"
                     type="text"
                     placeholder="Ingrese su usuario."
                     pInputText />
@@ -36,6 +37,7 @@
                 placeholder="Ingrese su contraseña."
                 [toggleMask]="true"
                 [feedback]="false"
+                data-testid="password"
                 formControlName="password">
             </p-password>
 
