@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { redirectIfAuthenticated, requiresAuthentication } from '@/security/guards/auth.guard';
-import { TeamsPageComponent } from '@/pages/teams/TeamsPageComponent';
-import { LoginPageComponent } from '@/pages/login/LoginPageComponent';
-import { DashboardPageComponent } from '@/pages/dashboard/DashboardPageComponent';
-import { PageNotFoundComponent } from '@/pages/not-found/PageNotFoundComponent';
+import { redirectIfAuthenticated, requiresAuthentication } from '@/app/security/guards/auth.guard';
+import { TeamsPageComponent } from '@/app/pages/teams/teams.page.component';
+import { LoginPageComponent } from '@/app/pages/login/login-page.component';
+import { DashboardPageComponent } from '@/app/pages/dashboard/dashboard-page.component';
+import { PageNotFoundComponent } from '@/app/pages/not-found/page-not-found.component';
 
 /**
  * Este enum sirve para llevar un control de las rutas de la aplicación, de esta forma vamos a poder realizar

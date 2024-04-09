@@ -1,6 +1,9 @@
 {
     "root": true,
     "ignorePatterns": ["projects/**/*", "backend-api"],
+    "plugins": [
+        "@typescript-eslint"
+    ],
     "overrides": [
         {
             "files": ["*.ts"],
@@ -30,7 +33,8 @@
                         "style": "kebab-case"
                     }
                 ],
-                "no-console": "error"
+                "no-console": "error",
+                "@typescript-eslint/no-explicit-any": "error"
             }
         },
         {

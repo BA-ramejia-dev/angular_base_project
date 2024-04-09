@@ -3,8 +3,8 @@ import { provideRouter } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { routes } from '@/app/app.routes';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { JwtInterceptor } from '@/security/jwt/JwtInterceptor';
-import { JwtService } from '@/services/jwt/jwt.service';
+import { JwtInterceptor } from '@/app/security/interceptors/jwt.interceptor';
+import { JwtService } from '@/app/services/jwt/jwt.service';
 
 export const appConfig: ApplicationConfig = {
     providers: [

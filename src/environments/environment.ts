@@ -1,4 +1,4 @@
-import { EnvironmentProps } from '@/utils/commonTypes';
+import { EnvironmentProps } from '@/app/utils/commonTypes';
 
 export const environment: EnvironmentProps = {
     isProduction: true,
