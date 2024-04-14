@@ -1,50 +1,20 @@
 import { fireEvent, render, screen } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
-import { of, throwError } from 'rxjs';
 import { AuthService } from '@/app/services/auth/auth.service';
 import { LoginComponent } from '@/app/components/login/login.component';
-import jwt from 'jsonwebtoken';
-import { TokenData, UserStatus } from '@/app/services/jwt/jwt.service.types';
 import { HttpErrorResponse } from '@angular/common/http';
 import { EventEmitter } from '@angular/core';
 import { AuthResponse } from '@/app/services/auth/auth.service.types';
+import { mockLoginFailureResponse, mockLoginSuccessResponse } from '@/testing/mockServices';
+import { fillAndSubmitLoginForm, submitLoginForm } from '@/testing/testingUtils';
 
 describe('LoginComponent', () => {
-    const tokenData: TokenData = {
-        userId: 123,
-        userName: 'Juan Perez',
-        userStatus: UserStatus.ACTIVE
-    };
-    const dummyJWT = jwt.sign(tokenData, 'PRIVATE_KEY');
-
-    const mockLoginSuccessResponse = {
-        login: jest.fn().mockReturnValue(
-            of({
-                token: dummyJWT
-            })
-        )
-    };
-
-    const mockLoginFailureResponse = {
-        login: jest.fn().mockReturnValue(throwError(() => new HttpErrorResponse({ status: 500 })))
-    };
-
-    const fillOutLoginForm = async () => {
-        const user = userEvent.setup();
-        const usernameInput = screen.getByTestId('userName');
-        const passwordInput = screen
-            .getByTestId('password')
-            .querySelector('input') as HTMLInputElement;
-        await user.type(usernameInput, 'master');
-        await user.type(passwordInput, 'master');
-    };
-
     it('should render', async () => {
         await render(LoginComponent, {
             componentProviders: [
                 {
                     provide: AuthService,
-                    useValue: mockLoginSuccessResponse
+                    useValue: mockLoginSuccessResponse()
                 }
             ],
             componentInputs: {
@@ -52,7 +22,7 @@ describe('LoginComponent', () => {
             }
         });
 
-        // Check bancatlan logo exists
+        // Check that bancatlan logo exists
         const logo = screen.getByAltText('Bancatlan Logo');
         expect(logo).toBeInTheDocument();
 
@@ -65,30 +35,23 @@ describe('LoginComponent', () => {
         expect(screen.getByText('Por favor ingresa tus credenciales')).toBeInTheDocument();
 
         // Check that username, password and submit button are displayed
-        const usernameInput = screen.getByTestId('userName');
-        expect(usernameInput).toBeInTheDocument();
-
-        const passwordInput = screen.getByTestId('password');
-        expect(passwordInput).toBeInTheDocument();
-
-        const submitButton = screen.getByText('Iniciar sesión');
-        expect(submitButton).toBeInTheDocument();
+        expect(screen.getByTestId('userName')).toBeInTheDocument();
+        expect(screen.getByTestId('password')).toBeInTheDocument();
+        expect(screen.getByText('Iniciar sesión')).toBeInTheDocument();
     });
 
     it('should display an error message for every field when they are empty and user tries to submit', async () => {
-        const user = userEvent.setup();
         await render(LoginComponent, {
             componentProviders: [
                 {
                     provide: AuthService,
-                    useValue: mockLoginSuccessResponse
+                    useValue: mockLoginSuccessResponse()
                 }
             ]
         });
 
         // Submit the form
-        const submitButton = screen.getByText('Iniciar sesión');
-        await user.click(submitButton);
+        await submitLoginForm();
 
         // Check errors
         const errors = screen.getAllByText('Campo requerido');
@@ -101,13 +64,13 @@ describe('LoginComponent', () => {
             componentProviders: [
                 {
                     provide: AuthService,
-                    useValue: mockLoginSuccessResponse
+                    useValue: mockLoginSuccessResponse()
                 }
             ]
         });
 
         // Write only 1 character
-        const usernameInput = screen.getByTestId('userName');
+        const usernameInput = screen.getByTestId<HTMLInputElement>('userName');
         await user.type(usernameInput, 'a');
 
         // Trigger a blur event
@@ -123,7 +86,7 @@ describe('LoginComponent', () => {
             componentProviders: [
                 {
                     provide: AuthService,
-                    useValue: mockLoginSuccessResponse
+                    useValue: mockLoginSuccessResponse()
                 }
             ],
             componentOutputs: {
@@ -134,15 +97,11 @@ describe('LoginComponent', () => {
         });
 
         // Fill out form
-        await fillOutLoginForm();
-
-        // Submit form
-        const submitButton = screen.getByText('Iniciar sesión');
-        await userEvent.click(submitButton);
+        await fillAndSubmitLoginForm();
 
         // Make sure event is emitted
         expect(loginSuccessSpy).toHaveBeenCalledWith({
-            token: dummyJWT
+            token: expect.any(String)
         });
     });
 
@@ -153,7 +112,7 @@ describe('LoginComponent', () => {
             componentProviders: [
                 {
                     provide: AuthService,
-                    useValue: mockLoginFailureResponse
+                    useValue: mockLoginFailureResponse()
                 }
             ],
             componentOutputs: {
@@ -164,11 +123,7 @@ describe('LoginComponent', () => {
         });
 
         // Fill out form
-        await fillOutLoginForm();
-
-        // Submit form
-        const submitButton = screen.getByText('Iniciar sesión');
-        await userEvent.click(submitButton);
+        await fillAndSubmitLoginForm();
 
         // Make sure event is emitted
         expect(loginFailureSpy).toHaveBeenCalledWith(expect.any(HttpErrorResponse));

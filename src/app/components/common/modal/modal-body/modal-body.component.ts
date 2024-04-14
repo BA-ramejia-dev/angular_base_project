@@ -15,7 +15,7 @@ export interface ModalContent {
     templateUrl: './modal-body.component.html'
 })
 export class ModalBodyComponent {
-    protected content: string | undefined = '';
+    content: string | undefined = '';
 
     constructor(private dynamicDialogConfig: DynamicDialogConfig<ModalContent>) {
         if (this.dynamicDialogConfig.data) {

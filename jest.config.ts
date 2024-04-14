@@ -10,6 +10,7 @@ const config: Config = {
     cacheDirectory: '.jest-cache',
     collectCoverage: true,
     collectCoverageFrom: ['<rootDir>/src/**/*.{js,ts}'],
+    coveragePathIgnorePatterns: ['<rootDir>/src/main.ts'],
     coverageReporters: ['html', 'text', 'cobertura', 'text-summary']
 };
 

@@ -1,18 +1,12 @@
 import { JwtService } from './jwt.service';
 import { LoggerService } from '@/app/services/logger/logger.service';
-import { TokenData, UserStatus } from '@/app/services/jwt/jwt.service.types';
 import jwt from 'jsonwebtoken';
+import { buildTokenData, getDummyJWT } from '@/testing/testingUtils';
 
 describe('JwtService', () => {
+    const dummyJWT = getDummyJWT();
     let service: JwtService;
     let logger: LoggerService;
-
-    const tokenData: TokenData = {
-        userId: 123,
-        userName: 'Juan Perez',
-        userStatus: UserStatus.ACTIVE
-    };
-    const dummyJWT = jwt.sign(tokenData, 'PRIVATE_KEY');
 
     beforeEach(() => {
         logger = new LoggerService();
@@ -45,12 +39,13 @@ describe('JwtService', () => {
     });
 
     it('should return false if token is expired', () => {
-        const jwtWithExpiration = jwt.sign(tokenData, 'PRIVATE_KEY', { expiresIn: '0s' });
+        const jwtWithExpiration = jwt.sign({}, 'PRIVATE_KEY', { expiresIn: '0s' });
         service.setToken(jwtWithExpiration);
         expect(service.isValidToken()).toBe(false);
     });
 
     it('should decode token', () => {
+        const tokenData = buildTokenData();
         const result = service.decodeToken(dummyJWT);
         expect(result).toEqual(expect.objectContaining(tokenData));
     });
@@ -61,6 +56,7 @@ describe('JwtService', () => {
     });
 
     it('should get decoded tokenData from localStorage', () => {
+        const tokenData = buildTokenData();
         service.setToken(dummyJWT);
         const result = service.getCurrentTokenData();
         expect(result).toEqual(expect.objectContaining(tokenData));

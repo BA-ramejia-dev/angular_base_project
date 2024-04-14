@@ -2,6 +2,7 @@ import { AuthGuard } from './auth.guard';
 import { ActivatedRouteSnapshot, Router, RouterStateSnapshot } from '@angular/router';
 import { JwtService } from '@/app/services/jwt/jwt.service';
 import { LoggerService } from '@/app/services/logger/logger.service';
+import { mockRouter } from '@/testing/mockServices';
 
 jest.mock('@/app/services/jwt/jwt.service');
 
@@ -11,12 +12,12 @@ describe('AuthGuard', () => {
     let router: Router;
     let logger: LoggerService;
 
-    const navigateMock = jest.fn();
+    const routerSpy = mockRouter();
 
     beforeEach(() => {
         logger = new LoggerService();
         jwtService = new JwtService(logger);
-        router = { navigate: navigateMock } as unknown as Router;
+        router = routerSpy as unknown as Router;
         guard = new AuthGuard(jwtService, router, logger);
     });
 
@@ -30,7 +31,7 @@ describe('AuthGuard', () => {
     it('should redirect to login if token invalid', () => {
         jest.spyOn(jwtService, 'isValidToken').mockReturnValue(false);
         guard.hasValidToken({} as ActivatedRouteSnapshot, {} as RouterStateSnapshot);
-        expect(navigateMock).toHaveBeenCalledWith(['']);
+        expect(routerSpy.navigate).toHaveBeenCalledWith(['']);
     });
 
     it('should return true if token is not valid', () => {
