@@ -31,6 +31,6 @@ export const fillAndSubmitLoginForm = async () => {
 
 export const submitLoginForm = async () => {
     const user = userEvent.setup();
-    const submitButton = screen.getByText<HTMLButtonElement>('Iniciar sesión');
+    const submitButton = screen.getByText('Iniciar sesión');
     await user.click(submitButton);
 };

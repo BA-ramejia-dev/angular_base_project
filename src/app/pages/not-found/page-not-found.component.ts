@@ -13,7 +13,7 @@ import { ButtonModule } from 'primeng/button';
 export class PageNotFoundComponent {
     constructor(private router: Router) {}
 
-    protected handleOnClick(): void {
+    handleOnClick(): void {
         this.router.navigate([APPLICATION_ROUTES.LOGIN]);
     }
 }

@@ -14,9 +14,9 @@ import { JwtService } from '@/app/services/jwt/jwt.service';
     imports: [ButtonModule, SidebarModule, MenuModule]
 })
 export class TopBarComponent implements OnInit {
-    protected mainMenuItems: MenuItem[] = [];
-    protected userMenuItems: MenuItem[] = [];
-    protected sidebarIsVisible: boolean = false;
+    mainMenuItems: MenuItem[] = [];
+    userMenuItems: MenuItem[] = [];
+    sidebarIsVisible: boolean = false;
 
     constructor(
         private jwtUtils: JwtService,

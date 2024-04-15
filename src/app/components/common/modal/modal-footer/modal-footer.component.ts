@@ -16,7 +16,7 @@ import { RippleModule } from 'primeng/ripple';
 export class ModalFooterComponent {
     constructor(private dialogRef: DynamicDialogRef) {}
 
-    protected closeDialog() {
+    closeDialog() {
         this.dialogRef.close();
     }
 }

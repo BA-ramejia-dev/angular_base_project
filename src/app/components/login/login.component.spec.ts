@@ -1,4 +1,4 @@
-import { fireEvent, render, screen } from '@testing-library/angular';
+import { fireEvent, render, screen, waitFor } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import { AuthService } from '@/app/services/auth/auth.service';
 import { LoginComponent } from '@/app/components/login/login.component';
@@ -54,8 +54,10 @@ describe('LoginComponent', () => {
         await submitLoginForm();
 
         // Check errors
-        const errors = screen.getAllByText('Campo requerido');
-        expect(errors.length).toEqual(2);
+        await waitFor(() => {
+            const errors = screen.getAllByText('Campo requerido');
+            expect(errors.length).toEqual(2);
+        });
     });
 
     it('should display a minLength error message when only 1 character is entered and user blurs', async () => {

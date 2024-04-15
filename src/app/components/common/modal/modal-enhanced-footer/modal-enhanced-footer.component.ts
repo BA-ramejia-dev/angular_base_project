@@ -15,7 +15,7 @@ import { SharedFormService } from '@/app/services/shared-form.service';
     templateUrl: './modal-enhanced-footer.component.html'
 })
 export class ModalEnhancedFooterComponent implements OnInit {
-    protected isLoading: boolean = false;
+    isLoading: boolean = false;
 
     constructor(
         private dialogRef: DynamicDialogRef,
