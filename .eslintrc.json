@@ -2,7 +2,8 @@
     "root": true,
     "ignorePatterns": ["projects/**/*", "backend-api"],
     "plugins": [
-        "@typescript-eslint"
+        "@typescript-eslint",
+        "@stylistic/js"
     ],
     "overrides": [
         {
@@ -34,7 +35,8 @@
                     }
                 ],
                 "no-console": "error",
-                "@typescript-eslint/no-explicit-any": "error"
+                "@typescript-eslint/no-explicit-any": "error",
+                "@stylistic/js/linebreak-style": ["error", "unix"]
             }
         },
         {
